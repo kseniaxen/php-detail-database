@@ -18,10 +18,10 @@ $listBrigade = $brigade->read();
 
 if (isset($_POST['choose-note'])) {
     //Validate id
-    if (empty($_POST['select-delete'])) {
+    if (empty($_POST['select-edit'])) {
         $idErr = "Выберите ID";
     } else {
-        $id = $_POST['select-delete'];
+        $id = $_POST['select-edit'];
     }
     if (empty($idErr)) {
         //Check if exist
@@ -36,7 +36,7 @@ if (isset($_POST['choose-note'])) {
 
 if (isset($_POST['edit'])) {
     //Validate shift
-    if (empty($_POST['shift'])) {
+    if (empty($_POST['shift']) || empty(trim($_POST['shift']))) {
         $shiftErr = "Ошибка ввода";
     } else {
         $shift = filter_input(INPUT_POST, 'shift', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -48,6 +48,7 @@ if (isset($_POST['edit'])) {
     if (isset($_SESSION['id']) && empty($shiftErr)) {
         if ($brigade->edit($_SESSION['id'], $shift, $notes)) {
             header('Location: ./index.php');
+            session_destroy();
         }
     }
 }
@@ -58,7 +59,7 @@ if (isset($_POST['edit'])) {
     <div class="col">
         <form method="POST">
             <div class="mb-3">
-                <select class="form-select <?php echo !$idErr ?: 'is-invalid'; ?>" name="select-delete">
+                <select class="form-select <?php echo !$idErr ?: 'is-invalid'; ?>" name="select-edit">
                     <option selected disabled value="">Выберите ID</option>
                     <?php foreach ($listBrigade as $item) : ?>
                         <?php if ($id == $item['id']) : ?>
@@ -77,7 +78,10 @@ if (isset($_POST['edit'])) {
             </div>
         </form>
         <div class="<?php echo $showEdit ? 'd-block' : 'd-none'; ?>">
-            <form method="POST">
+        <div>
+            <h3>ID: <?php echo $_SESSION['id']?: $_SESSION['id']; ?></h3>
+        </div>
+        <form method="POST">
                 <div class="mb-3">
                     <label for="shift" class="form-label">График работы</label>
                     <input type="text" value="<?php echo !$brigade->shift ?: $brigade->shift; ?>" class="form-control <?php echo !$shiftErr ?: 'is-invalid'; ?>" id="shift" name="shift" placeholder="Введите график работы бригады">
@@ -96,3 +100,5 @@ if (isset($_POST['edit'])) {
         </div>
     </div>
 </div>
+
+<?php include '../includes/footer.php'; ?>

@@ -21,7 +21,7 @@ $listBrigade = $brigade->read();
     </div>
 </div>
 <div class="row">
-    <div class="col-12">
+    <div class="col-12 table-fixed">
         <?php if (empty($listBrigade)) : ?>
             <p class="lead mt3">Нету записей</p>
         <?php else : ?>

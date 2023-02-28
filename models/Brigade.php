@@ -89,6 +89,7 @@ class Brigade
         }
     }
 
+    //Read Single Brigade
     public function read_single($id)
     {
         try {

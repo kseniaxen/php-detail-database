@@ -1,16 +1,17 @@
 <?php include '../includes/header.php'; ?>
 <?php include '../config/Database.php'; ?>
-<?php include '../models/Brigade.php'; ?>
+<?php include '../models/Worker.php'; ?>
 
 <?php
+
 $id = '';
 $idErr = '';
 
 $database = new Database();
 $db = $database->connect();
 
-$brigade = new Brigade($db);
-$listBrigade = $brigade->read();
+$worker = new Worker($db);
+$listWorker = $worker->read();
 
 if(isset($_POST['delete'])) {
     if(empty($_POST['select-delete'])) {
@@ -20,7 +21,7 @@ if(isset($_POST['delete'])) {
     }
 
     if(empty($idErr)) {
-        if($brigade->delete($id)) {
+        if($worker->delete($id)) {
             header('Location: ./index.php');
         }
     }
@@ -34,7 +35,7 @@ if(isset($_POST['delete'])) {
             <div class="mb-3">
                 <select class="form-select <?php echo !$idErr ?: 'is-invalid'; ?>" name="select-delete">
                     <option selected disabled value="">Выберите ID</option>
-                    <?php foreach ($listBrigade as $item) : ?>
+                    <?php foreach ($listWorker as $item) : ?>
                         <option value=<?php echo $item['id'] ?>><?php echo $item['id'] ?></option>
                     <?php endforeach; ?>
                 </select>
