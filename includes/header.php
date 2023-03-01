@@ -29,6 +29,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/php-course/php-detail-database/worker/index.php">Рабочие</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/php-course/php-detail-database/detail/index.php">Детали</a>
+                    </li>
                 </ul>
             </div>
         </div>

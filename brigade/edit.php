@@ -84,14 +84,14 @@ if (isset($_POST['edit'])) {
         <form method="POST">
                 <div class="mb-3">
                     <label for="shift" class="form-label">График работы</label>
-                    <input type="text" value="<?php echo !$brigade->shift ?: $brigade->shift; ?>" class="form-control <?php echo !$shiftErr ?: 'is-invalid'; ?>" id="shift" name="shift" placeholder="Введите график работы бригады">
+                    <input type="text" value="<?php echo $brigade->shift ? $brigade->shift: ''; ?>" class="form-control <?php echo !$shiftErr ?: 'is-invalid'; ?>" id="shift" name="shift" placeholder="Введите график работы бригады">
                     <div class="invalid-feedback">
                         <?php echo $shiftErr; ?>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="notes" class="form-label">Заметки</label>
-                    <textarea class="form-control" id="notes" name="notes" placeholder="Введите заметки для бригады" style="min-height: 100px;"><?php echo !$brigade->notes ?: $brigade->notes; ?></textarea>
+                    <textarea class="form-control" id="notes" name="notes" placeholder="Введите заметки для бригады" style="min-height: 100px;"><?php echo $brigade->notes ? $brigade->notes : ''; ?></textarea>
                 </div>
                 <div class="mb-3">
                     <input type="submit" name="edit" value="Изменить запись" class="btn btn-primary w-100">
